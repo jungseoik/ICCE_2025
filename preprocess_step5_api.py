@@ -1,17 +1,7 @@
 from gemini.gemini_api import GeminiImageAnalyzer
-
-# api = GeminiImageAnalyzer("gemini-2.5-flash")
-# result = api.analyze_image(image_path="/home/piawsa6000/nas192/datasets/projects/ICCE_2025/ICCE_2025/result_bench_frame/Abuse001_x264/anomaly_000356.jpg")
-# print(result)
-
-# api = GeminiImageAnalyzer("gemini-2.5-pro")
-# result = api.analyze_image(image_path="/home/piawsa6000/nas192/datasets/projects/ICCE_2025/ICCE_2025/result_bench_frame/Abuse001_x264/anomaly_000356.jpg")
-# print(result)
-
 import os
 import json
 from pathlib import Path
-from gemini.gemini_api import GeminiImageAnalyzer
 
 def parse_json_response(response_text: str) -> dict:
     """

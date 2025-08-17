@@ -475,8 +475,8 @@ def main():
     model_path = 'assets/888tiny.pkl'
     model_arch = 'tiny'
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    video_base_path = 'ucf_crime/ucf-crime/videos/train'  # 비디오 파일들이 있는 기본 경로
-    batch_size = 8  # GPU 메모리에 따라 조정
+    video_base_path = 'ucf-crime/videos/train'  # 비디오 파일들이 있는 기본 경로
+    batch_size = 16  # GPU 메모리에 따라 조정
     
     input_jsonl = 'result.jsonl'
     output_jsonl = 'result_score.jsonl'

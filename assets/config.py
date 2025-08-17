@@ -6,7 +6,7 @@ AUTOSHOT_MODEL_PATH = "ckpt_0_200_0.pth"  # 모델 파일 경로
 AUTOSHOT_THRESHOLD = 0.296  # 장면 경계 감지 임계값
 
 ## GEMINI setting
-ENV_AUTH = "/home/piawsa6000/nas192/datasets/projects/ICCE_2025/ICCE_2025/assets/gmail-361002-cbcf95afec4a.json"
+ENV_AUTH = "/home/pia/jsi/ICCE_2025/assets/gmail-361002-cbcf95afec4a.json"
 PROMPT = """
 You are a video surveillance training expert.
 
@@ -59,3 +59,63 @@ Please generate the question in **structured JSON format** according to the guid
   "difficulty": "Intermediate"
 }
 """
+
+PROMPT_VIDEO ="""
+You are a **video surveillance training expert**.
+
+Based on a CCTV **video clip**,
+you must generate a **high-difficulty security training question**
+that can be used by security professionals or AI models for training purposes.
+
+The question must **strictly follow** the structured JSON format below.
+
+---
+
+\[Objectives]
+
+* The question must be clear, unambiguous, and have high educational value.
+* The correct answer must be inferable **solely from the provided video clip** using visual and contextual evidence.
+* Various question types are acceptable, but the output **must strictly follow** the JSON structure below.
+
+---
+
+| **Question Type**                | **Description**                                                                      | **Key Evaluation Focus**                     | **Example Question**                                                |
+| -------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------- | ------------------------------------------------------------------- |
+| **Multiple Choice**              | A 4-option question inferring person/object/action/situation                         | Visual identification, situational reasoning | "What is this person doing?"                                        |
+| **True/False (Binary Judgment)** | A declarative question to answer with Yes or No                                      | Factual reasoning, time/location recognition | "Was this scene captured in a restricted area?"                     |
+| **Short Answer**                 | A brief descriptive answer about situational judgment or appropriate security action | Decision-making, inference                   | "What should the security officer do in this situation?"            |
+| **Action Classification**        | Classify or select the action of a specific person in the video                      | Pose recognition, interaction analysis       | "What is the person in the red shirt doing?"                        |
+| **Object Existence**             | Asks whether a specific object is present in the video                               | Object detection ability                     | "Is there a firearm visible in this scene?"                         |
+| **Spatial Reasoning**            | Determine the relative position or direction of an object or person                  | Spatial awareness                            | "Is the person located on the left side of the frame?"              |
+| **Anomaly Detection**            | Identify whether the scene is abnormal and explain why                               | Contextual reasoning, norm awareness         | "Does this scene appear to be abnormal?"                            |
+| **Crime Type Matching**          | Match an abnormal scene to a specific crime category                                 | Scene-to-concept classification              | "If this scene is abnormal, what type of crime does it indicate?"   |
+| **Temporal Reasoning**           | Infer temporal context from visual clues (e.g., late-night activity)                 | Time interpretation                          | "Was this scene captured during nighttime hours?"                   |
+| **Security Response**            | Decide the most appropriate action in the given situation                            | Decision-making, tactical planning           | "What is the most appropriate security response in this situation?" |
+| **Abnormality Scoring**          | Evaluate the abnormality level of the entire video on a 0–1 scale                    | Abnormality detection and quantification     | "Based on the video, what is the abnormality score (0–1)?"          |
+
+---
+[Output JSON Structure]
+{
+  "question_type": "Type of question (e.g., Multiple Choice, True/False, Short Answer, Action Classification, etc.)",
+  "question": "The question text",
+  "options": ["Option A", "Option B", "Option C", "Option D"], // Can be omitted for True/False, Short Answer, or Abnormality Scoring
+  "answer": "Correct answer (matching option text, 'O'/'X', a short sentence, or a float value between 0 and 1)",
+  "rationale": "A clear explanation of the visual/logical reasoning behind the correct answer",
+  "intended_skill": "The skill intended to be evaluated (e.g., action recognition, anomaly detection, abnormality scoring, etc.)",
+  "difficulty": "Either 'Intermediate' or 'Advanced'"
+}
+
+---
+
+[Example Question]
+{
+  "question_type": "Abnormality Scoring",
+  "question": "Based on the provided video, evaluate the abnormality level on a scale from 0 to 1.",
+  "answer": 0.85,
+  "rationale": "The video shows an individual persistently following another person while attempting physical contact, with surrounding individuals visibly avoiding the area. This behavior deviates from normal pedestrian movement patterns and indicates a potential threat.",
+  "intended_skill": "Abnormality detection and quantitative assessment",
+  "difficulty": "Advanced"
+}
+
+"""
+

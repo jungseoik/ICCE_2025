@@ -1,21 +1,12 @@
-## step1
-기존 어노테이션에서 이상상황 수준의 이벤트 클립 구간 추출
+# download
+hf download backseollgi/HAWK_ICCE2025 --repo-type dataset --local-dir .
 
-## step2
-비디오 AUTO SHOT을 활용해
-샷 검출(장면전환)
+# HAWK_bench 복원
+cat HAWK_bench.tar.gz.part-* > HAWK_bench.tar.gz
+tar -I pigz -xvf HAWK_bench.tar.gz
 
-## step3
-이미지 추출 비디오에서,
-이상상황은 3개
-segmnet는 1개 중앙값
-
-## step4
-가운데 한장만 추출
-3장중 1장, 이상상황
-segment는 그대로
-
-## step5
-gemini 사용 이미치 벤치마크 구축
+# HAWK_bench_json 복원
+cat HAWK_bench_json.tar.gz.part-* > HAWK_bench_json.tar.gz
+tar -I pigz -xvf HAWK_bench_json.tar.gz
 
 
